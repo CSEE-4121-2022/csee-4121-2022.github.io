@@ -15,18 +15,19 @@
   <body>
 
     {% include header.html %}
-    <div class="wrapper">
-      <section>
 
-      {{ content }}
 
-      </section>
-      <footer>
-        {% if site.github.is_project_page %}
-        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-        {% endif %}
-      </footer>
+    <div class="row content" style="margin-top: 2em;">
+      <div class="col-md-3 col-md-offset-1">
+            {% capture index_left %}{% include index_left.md %}{% endcapture %}
+            {{ index_left | markdownify }}
+        </div>
+      <div class="col-md-7">
+            {{ content }}
+      </div>
+      <div class="joiner"></div>
     </div>
+    
     {% include footer.html %}
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
   </body>
