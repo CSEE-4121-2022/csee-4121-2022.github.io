@@ -164,7 +164,7 @@ Students are expected to have solid programming experience in Python or with an 
 25% Final
 
 ## Collaboration/Copying Policy
-Programming assignment 1 and the written assignment will be done alone. Programming assignments 2-3 will be done in pairs . You may not copy answers and code. We will enforce this policy when checking the assignments (we use a code similarity system).
+Programming assignment 1 and the written assignment will be done alone. Programming assignment 2 will be done in pairs . You may not copy answers and code. We will enforce this policy when checking the assignments (we use a code similarity system).
 
 ## Course Materials
 No textbook.
