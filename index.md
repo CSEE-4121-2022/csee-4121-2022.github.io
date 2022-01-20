@@ -71,7 +71,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tbody>
 <tr>
 <td markdown="span">1</td>
-<td markdown="span">Introduction</td> <a href="https://www.dropbox.com/s/evzk4lv8hh9sxt5/Topic%201%20-%20intro%20and%20rules%20of%20thumb.pdf?dl=0">Slides Link</a>
+<td markdown="span">Introduction <a href="https://www.dropbox.com/s/evzk4lv8hh9sxt5/Topic%201%20-%20intro%20and%20rules%20of%20thumb.pdf?dl=0">Slides Link</a></td>
 <th></th>
 </tr>
 <tr>
