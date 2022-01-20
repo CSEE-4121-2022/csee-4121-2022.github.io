@@ -48,9 +48,6 @@ Fridays 10:10 AM - 12:40 PM
 ## TAs
 TBD 
 
-## Slack workspace
-TBD
-
 ## Prerequisites
 Students are expected to have solid programming experience in Python or with an equivalent programming language. This class is intended to be accessible for data scientists who do not necessarily have a background in databases, operating systems or distributed systems.
 
