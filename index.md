@@ -39,16 +39,41 @@ conducting analysis on large data sets?</li>
 
 ## Instructors
  Asaf Cidon and Sambit Sahu\\
-OH: TBD (By appointment only)
+OH: By appointment only
 
 ## Location and Time
-TBD \\
-Fridays 10:10 AM - 12:40 PM
+Asaf Cidon - Fridays 10:10 AM - 12:40 PM | 417 International Affairs Building \\
+Sambit Sahu - Thursdays 7:00 PM - 9:30 PM | 402 Chandler
 
 ## TAs
-TBD 
+<table>
+  <tr>
+    <td>Rahul Chaudhari</td>
+    <td>Shantanu Jain</td>
+  </tr>
+  <tr>
+    <td>Wei Hao</td>
+    <td>Koushik Roy</td>
+  </tr>
+  <tr>
+    <td>Aashish Arora</td>
+    <td>Manisha Rajkumar</td>
+  </tr>
+  <tr>
+    <td>Harshitha Malireddi</td>
+    <td>Ruchika Goel</td>
+  </tr>
+  <tr>
+    <td>Joy Parikh</td>
+    <td>Suvansh Dutta</td>
+  </tr>
+  <tr>
+    <td>Sai Karthik Ammanamanchi</td>
+    <td>Zhejian Jin</td>
+  </tr>
+</table> 
 
-## Slack workspace
+## Piazza
 TBD
 
 ## Prerequisites
@@ -162,6 +187,9 @@ Students are expected to have solid programming experience in Python or with an 
 10% Written Homework 2 \\
 15% Midterm \\
 25% Final
+
+## Late Submission Policy
+Each student will have a total of 3 late days for the entire semester. After all late days are used, there will be a 5% penalty for submission within 24 hrs of the deadline, 10% penalty for submission within 48hrs of the deadline and 20% penalty for submission within 72 hrs of the deadline. No submissions will be accepted after 72 hrs from the deadline.
 
 ## Collaboration/Copying Policy
 Programming assignment 1 and the written assignment will be done alone. Programming assignment 2 will be done in pairs . You may not copy answers and code. We will enforce this policy when checking the assignments (we use a code similarity system).
