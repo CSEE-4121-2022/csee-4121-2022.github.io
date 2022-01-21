@@ -91,89 +91,89 @@ Students are expected to have solid programming experience in Python or with an 
 </colgroup>
 <thead>
 <tr class="header">
-<th>Date</th>
+<th>Week</th>
 <th>Topic</th>
 <th>Homework</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td markdown="span">Jan 21</td>
-<td markdown="span">Introduction</td>
+<td markdown="span">1</td>
+<td markdown="span">Introduction (<a href="https://www.dropbox.com/s/evzk4lv8hh9sxt5/Topic%201%20-%20intro%20and%20rules%20of%20thumb.pdf?dl=0">Slides</a>)</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">Jan 28</td>
+<td markdown="span">2</td>
 <td markdown="span">Infrastructure for Big Data</td>
 <th markdown="1">Programming Homework 1 released</th>
 </tr>
 <tr>
-<td markdown="span">Feb 4</td>
+<td markdown="span">3</td>
 <td markdown="span">Relational Data Model</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">Feb 11</td>
+<td markdown="span">4</td>
 <td markdown="span">Transactions and Logging</td>
 <th markdown="1">Written Homework 1 released</th>
 </tr>
 <tr>
-<td markdown="span">Feb 18</td>
+<td markdown="span">5</td>
 <td markdown="span">Storage/memory hierarchy and key value stores</td>
 <th markdown="1">Programming Homework 1 due</th>
 </tr>
 <tr>
-<td markdown="span">Feb 25</td>
+<td markdown="span">6</td>
 <td markdown="span"> Distributed databases and file systems</td>
 <th markdown="1">Written Homework 1 due</th>
 </tr>
 <tr>
-<td markdown="span">Mar 4</td>
-<td markdown="span">Midterm</td>
+<td markdown="span">7</td>
+<td markdown="span">Midterm (all material up to, not including distributed databases)</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">Mar 11</td>
+<td markdown="span">8</td>
 <td markdown="span">Challenges in scaling</td>
 <th markdown="1">Programming Homework 2 released</th>
 </tr>
 <tr>
-<td markdown="span">Mar 18</td>
+<td markdown="span">9</td>
 <td markdown="span">Spring Break</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">Mar 25</td>
+<td markdown="span">10</td>
 <td markdown="span">MapReduce and stragglers</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">April 1</td>
+<td markdown="span">11</td>
 <td markdown="span">Spark and distributed analytics</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">April 8</td>
+<td markdown="span">12</td>
 <td markdown="span">Caching</td>
 <th markdown="1">Programming Homework 2 due, Written Homework 2 out</th>
 </tr>
 <tr>
-<td markdown="span">April 15</td>
+<td markdown="span">13</td>
 <td markdown="span">Security and privacy</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">April 22</td>
+<td markdown="span">14</td>
 <td markdown="span">Data quality</td>
 <th></th>
 </tr>
 <tr>
-<td markdown="span">April 29</td>
+<td markdown="span">15</td>
 <td markdown="span">Review</td>
 <th markdown="1">Written Homework 2 due</th>
 </tr>
 <tr>
-<td markdown="span">May 6</td>
+<td markdown="span">16</td>
 <td markdown="span">Final Exam</td>
 <th></th>
 </tr>
@@ -192,7 +192,7 @@ Students are expected to have solid programming experience in Python or with an 
 Each student will have a total of 3 late days for the entire semester. After all late days are used, there will be a 5% penalty for submission within 24 hrs of the deadline, 10% penalty for submission within 48hrs of the deadline and 20% penalty for submission within 72 hrs of the deadline. No submissions will be accepted after 72 hrs from the deadline.
 
 ## Collaboration/Copying Policy
-Programming assignment 1 and the written assignment will be done alone. Programming assignment 2 will be done in pairs . You may not copy answers and code. We will enforce this policy when checking the assignments (we use a code similarity system).
+Programming assignment 1 and the written assignments will be done alone. Programming assignment 2 will be done in pairs. You may not copy answers and code. We will enforce this policy when checking the assignments (we use a code similarity system).
 
 ## Course Materials
 No textbook.
