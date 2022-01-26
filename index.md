@@ -71,6 +71,9 @@ Sambit Sahu - Thursdays 7:00 PM - 9:30 PM | 402 Chandler
     <td>Sai Karthik Ammanamanchi</td>
     <td>Zhejian Jin</td>
   </tr>
+    <tr>
+    <td>Gaurav Sinha</td>
+  </tr>
 </table> 
 
 ## Piazza
