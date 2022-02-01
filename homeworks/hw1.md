@@ -226,9 +226,10 @@ You will be asked to submit a CSV file for each question, and you could download
     
     Order by the number of days in ascending order.
 
-   | id | display_name | reputation | num_days  |
-   | :-:| :-----------:| :---------:| :-------: |
-   |    |              |            |           |
+    | id | display_name | reputation | num_days  |
+    | :-:| :-----------:| :---------:| :-------: |
+    |    |              |            |           |
+
 
 11. (1 point) You might remember that we did a comparison between reputation bucket and upvote_ratio. This question is pretty similar to that one – we would like to check a similar relationship between score and view counts.
 
