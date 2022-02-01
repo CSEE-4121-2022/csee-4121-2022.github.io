@@ -11,6 +11,9 @@ CSEE4121 - Computer Systems for Data Science
 {: style="color:black; font-size: 190%; font-weight:700; text-align: center; padding-top: 15px;"}
 Spring '22, Columbia University
 {: style="color:black; font-size: 130%; text-align: center; padding-bottom: 30px;"}
+
+[Programming Homework 1]({{ site.baseurl }}{%link homeworks/hw1.md %})
+
 ----
 
 ## Course Overview
@@ -46,6 +49,7 @@ Asaf Cidon - Fridays 10:10 AM - 12:40 PM | 417 International Affairs Building \\
 Sambit Sahu - Thursdays 7:00 PM - 9:30 PM | 402 Chandler
 
 ## TAs
+<p>Please refer Ed for Office Hours</p>
 <table>
   <tr>
     <td>Rahul Chaudhari</td>
@@ -76,8 +80,8 @@ Sambit Sahu - Thursdays 7:00 PM - 9:30 PM | 402 Chandler
   </tr>
 </table> 
 
-## Piazza
-TBD
+## Ed
+Ed link has been posted on courseworks!
 
 ## Prerequisites
 Students are expected to have solid programming experience in Python or with an equivalent programming language. This class is intended to be accessible for data scientists who do not necessarily have a background in databases, operating systems or distributed systems.
@@ -108,7 +112,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">2</td>
 <td markdown="span">Relational Data Model (<a href="https://www.dropbox.com/s/z1vvm34hhwq1csj/Topic%202%20-%20relational%20model.pdf?dl=0">Slides</a>)</td>
-<th markdown="1">Programming Homework 1 released</th>
+<th markdown="1">Programming Homework 1 released (January 31, 2022)</th>
 </tr>
 <tr>
 <td markdown="span">3</td>
@@ -123,21 +127,21 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">5</td>
 <td markdown="span">Storage/memory hierarchy and key value stores</td>
-<th markdown="1">Programming Homework 1 due</th>
 </tr>
 <tr>
 <td markdown="span">6</td>
 <td markdown="span"> Distributed databases and file systems</td>
-<th markdown="1">Written Homework 1 due</th>
+<th markdown="1">Programming Homework 1 due (February 25, 2022 4:59:59PM)</th>
 </tr>
 <tr>
 <td markdown="span">7</td>
-<td markdown="span">Midterm (all material up to, not including distributed databases)</td>
+<td markdown="span">Challenges in scaling</td>
+<th markdown="1">Written Homework 1 due</th>
 <th></th>
 </tr>
 <tr>
 <td markdown="span">8</td>
-<td markdown="span">Challenges in scaling</td>
+<td markdown="span">Midterm (all material up to, not including Challenges in scaling)</td>
 <th markdown="1">Programming Homework 2 released</th>
 </tr>
 <tr>
@@ -199,3 +203,5 @@ Programming assignment 1 and the written assignments will be done alone. Program
 
 ## Course Materials
 No textbook.
+
+<p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
