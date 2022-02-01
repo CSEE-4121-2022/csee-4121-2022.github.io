@@ -112,7 +112,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">2</td>
 <td markdown="span">Relational Data Model (<a href="https://www.dropbox.com/s/z1vvm34hhwq1csj/Topic%202%20-%20relational%20model.pdf?dl=0">Slides</a>)</td>
-<th markdown="1">Programming Homework 1 released (January 31, 2022)</th>
+<th markdown="1">[Programming Homework 1 released (January 31, 2022)]({{ site.baseurl }}{%link homeworks/hw1.md %})</th>
 </tr>
 <tr>
 <td markdown="span">3</td>
@@ -127,6 +127,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">5</td>
 <td markdown="span">Storage/memory hierarchy and key value stores</td>
+<th></th>
 </tr>
 <tr>
 <td markdown="span">6</td>
