@@ -121,7 +121,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">4</td>
-<td markdown="span">Transactions and Logging</td>
+<td markdown="span">Transactions and Logging (<a href="https://www.dropbox.com/s/oajai8bm781wiv0/Topic%203%20-%20transactions%20and%20ACID.pdf?dl=0">Slides</a>)</td>
 <th markdown="1">Written Homework 1 released</th>
 </tr>
 <tr>
