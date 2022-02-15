@@ -274,7 +274,7 @@ You will be asked to submit a CSV file for each question, and you could download
     | :--: | :-----------: | :-----------------: |
     |      |               |                     |
 
-14. (2 points) List top 20 users with the most number of answers along with their id, display_name, reputation and the number of answers. 
+14. (2 points) List top 20 users who posted the highest number of answers along with their id, display_name, reputation and the number of answers. 
 
     Print only those users with the number of answers greater than 50. Order the same by number of answers in descending order.
 
