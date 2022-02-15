@@ -262,13 +262,13 @@ You will be asked to submit a CSV file for each question, and you could download
 
     Interestingly, *Wednesday* has the most answers! It’s not surprising that users do not answer much during weekends.
 
-13. (1 point) What is the percentage of questions that are answered every year?
+13. (1 point) What is the percentage of questions that are answered every year? Note that we attribute the question to the year in which it was posted. For example, if a question was posted in year X and answered in year Y, we count it as a question of year X.
 
 	List out the year, number of questions (in that year) along with the percentage answered (**multiply by 100 and then round it up**).
 
     A question is said to be answered if the `answer_count` field is greater than zero.
 
-	Order by year.
+	Order by year in descending order.
 
     | year | num_questions | percentage_answered |
     | :--: | :-----------: | :-----------------: |
