@@ -168,6 +168,7 @@ You will be asked to submit a CSV file for each question, and you could download
     Its the ratio of the sum of upvotes by the sum of downvotes for users that lie in that bucket.
 
     Order by `num_users` in descending order.
+    Please name the buckets: 0-500, 501-5000, 5001-50000, 50001-500000, >500000
 
 	**HINT**: Use CASE… WHEN operators for bucketizing, and ROUND function for rounding the floating to the appropriate number of decimal places.
 
@@ -262,7 +263,7 @@ You will be asked to submit a CSV file for each question, and you could download
 
     Interestingly, *Wednesday* has the most answers! It’s not surprising that users do not answer much during weekends.
 
-13. (1 point) What is the percentage of questions that are answered every year? Note that we attribute the question to the year in which it was posted. For example, if a question was posted in year X and answered in year Y, we count it as a question of year X.
+13. (1 point) What is the percentage of questions that are answered every year? Note that we attribute the question to the year in which it was posted. For example, if a question was posted in year X and answered in year Y, we count it as a question of year X. A question that was answered has an answer_count field that is greater than zero
 
 	List out the year, number of questions (in that year) along with the percentage answered (**multiply by 100 and then round it up**).
 
@@ -277,6 +278,8 @@ You will be asked to submit a CSV file for each question, and you could download
 14. (2 points) List top 20 users who posted the highest number of answers along with their id, display_name, reputation and the number of answers. 
 
     Print only those users with the number of answers greater than 50. Order the same by number of answers in descending order.
+    
+    In the table: the attribute id refers to the id of the answer text, the attribute owner_user_id refers to the user who has answered, and the attribute parent_id refers to the question id that the answer is for.
 
     **Clarification**: The `answer_count` and `accepted_answer_id` fields are all null for posts_answers.
 
