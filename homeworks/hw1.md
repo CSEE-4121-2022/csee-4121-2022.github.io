@@ -78,13 +78,16 @@ This section will guide you through creating a BigQuery project and setting up y
 
 ## Questions
 
+**Please read the submission instructions carefully before starting the assignment.**
+
 Now that you’ve gotten comfortable and familiar with BigQuery and its SQL querying interface, let’s get to work and answer some questions about the Stackoverflow dataset!
 
 You will be asked to submit a CSV file for each question, and you could download the results of a query using the `SAVE RESULTS `button on the bottom panel and chose to save the CSV locally. We will provide you the column names for the expected output. You can name your columns whatever you want, as long as the content matches both in ordering and in values.
 
 **Notes:** 
 - We will be using Autograder for grading this assignment. Hence, it is critical that you follow the ordering and other constraints as mentioned in the problem. There are no partial credits for this assignment.
-- Some of the tables in the dataset have similar schema, for example, `posts_questions` and `stackoverflow_posts`. In this assignment, **we will only work with `posts_questions` as against `stackoverflow_posts`.**
+- In this assignment, we will only be working with the following tables: `badges`, `posts_answers`, `posts_questions` and `users`. That is, you should ignore all the other tables that are present in the stackoverflow dataset, and use a **subset of the above mentioned tables only** for answering the below questions.
+ - The problems generally would not state the table from where you should look from. Rather, in most problems it is understood from context.
 - Please read submission instructions before you begin.
 - Reiterating, **CSV output should match exactly in ordering and limits.**
 
@@ -107,13 +110,13 @@ You will be asked to submit a CSV file for each question, and you could download
 
 3. (2 points) Distribution of users with respect to countries. List the top 10 countries with the most users along with their count. Order them by count in descending order. 
 
-    Since the location data is very messy, we will take the following actions for some of the countries. If the location contains:
+    Since the location data is very messy, we will take the following actions for some of the countries. If the location contains(case sensitive):
     - either “USA” or “United States” as a substring, convert the country name to: “USA” as a string.
     - either “London” or “United Kingdom” as a substring, convert the country name to: “UK” as a string.
     - if “France” appears as a substring, convert it to the string: “France”.
     - If “India” appears as a substring, convert it to the string: “India”.
     
-    **Omit all NULL values** of locations in the results.
+    **Omit all NULL values** of locations in the results. For other locations (not mentioned in the above list), please keep the names as it is.
 
     **NOTE**: Only use `SELECT` statements. No `UPDATE` statements are required. 
 
@@ -129,7 +132,7 @@ You will be asked to submit a CSV file for each question, and you could download
 
     Order by years in descending order.
 
-    Active users with respect to a year are users whose **“last_access_date”** were in that year.
+    Active users with respect to a year are users whose **“last_access_date”** were in that year.It does not matter whether the user came online in previous years or not. For example, if a user's `last_access_date` was in the year 2020, then the user will **only be considered an active user for the year 2020.**
 
    | last_access_year | num_users  |
    | :--------------: | :--------: |
@@ -137,10 +140,10 @@ You will be asked to submit a CSV file for each question, and you could download
 
 
 5. (2 points) Some users are dormant while some are active. We would like to see examples of users who are dormant. 
-	Considering today is **December 30, 2021** -- List the users (id, display_name) along with `days_since_last_access` and `days_since_creation`. 
+	Considering today is **December 30, 2021** -- List the users (id, display_name, last_access_date) along with `days_since_last_access` and `days_since_creation`. 
     
     - **days_since_last_access**: number of days (from December 30, 2021) since their last access.
-    - **days_since_creation**: number of days from their account creation since their last access.
+    - **days_since_creation**: number of days between their account creation and their last access.
     
     List the top 10 users with the above requirements, in order of `days_since_last_access` (descending order), `days_since_creation` (descending order).
 
@@ -155,8 +158,9 @@ You will be asked to submit a CSV file for each question, and you could download
 
 6. (2 points) How does a user's reputation change with upvotes and downvotes?
 	Since users’ reputation varies widely, we will bucketize the users into the following reputation buckets:
-    0-500, 501-5000, 5001-50000, 50001-500000, >500000
-    These are reputation values converted to intervals.
+    0-500, 501-5000, 5001-50000, 50001-500000, >500000 
+
+     These are reputation values converted to intervals. Ensure that the above intervals are strings in your final output for the `reputation_bucket` column.
 
 	For every reputation bucket, do the following:
     - calculate the upvote ratio (round it to **two decimal places**).
@@ -168,6 +172,7 @@ You will be asked to submit a CSV file for each question, and you could download
     Its the ratio of the sum of upvotes by the sum of downvotes for users that lie in that bucket.
 
     Order by `num_users` in descending order.
+    **NOTE**: Use the exact reputation bucket values mentioned above. Do not change the interval values. 
 
 	**HINT**: Use CASE… WHEN operators for bucketizing, and ROUND function for rounding the floating to the appropriate number of decimal places.
 
@@ -186,7 +191,7 @@ You will be asked to submit a CSV file for each question, and you could download
 
     **Note**: The year corresponds to the year when the questions were created.
 
-	**HINT**: the SPLIT function allows you to split a string based on a delimiter. UNNEST function returns a table based on an array as input
+	**HINT**: the SPLIT function allows you to split a string based on a delimiter. UNNEST function returns a table based on an array as input.
 
    | tag | count |
    | :-: | :---: |
@@ -202,7 +207,9 @@ You will be asked to submit a CSV file for each question, and you could download
 
     We would like to find out the most popular golden badges that stackoverflow awards.
     
-    List out the *top 10 golden badges* (name) along with the number of users who have received these badges in descending order of the number of users.
+    List out the *top 10 golden badges* (name) along with the number of users who have received these badges in descending order of the number of users. 
+
+     **Clarification:** A user can receive more than one golden badge of the same name. In this instance, we will count the **number of users as two** for the said golden badge..
 
 
    | name | num_users |
@@ -231,7 +238,7 @@ You will be asked to submit a CSV file for each question, and you could download
     |    |              |            |           |
 
 
-11. (1 point) You might remember that we did a comparison between reputation bucket and upvote_ratio. This question is pretty similar to that one – we would like to check a similar relationship between score and view counts.
+11. (1 point) You might remember that we did a comparison between reputation bucket and upvote_ratio. This question is pretty similar to that one – we would like to check a similar relationship between score and view counts for the questions asked on stackoverflow.
 
 	The score buckets: <0, 0-100, 101-1000, 1001-10000, >10000
     These are the values of scores in intervals.
@@ -239,7 +246,7 @@ You will be asked to submit a CSV file for each question, and you could download
 	List out the average number of views for each score bucket value. 
     
     Round it to 2 decimal places and order the same by the average views in ascending order.
- 
+    **HINT**: Use the *ROUND* function provided by Bigquery.
 
     | score_bucket | avg_num_views |
     | :----------: | :-----------: |
@@ -254,7 +261,7 @@ You will be asked to submit a CSV file for each question, and you could download
     
     Order by the number of answers in descending order.
 
-	**HINT**: DAYOFWEEK function allows you to extract the weekday. Range is 1-7 with 1 corresponding to Sunday.
+    **HINT**: DAYOFWEEK function allows you to extract the weekday. Range is 1-7 with 1 corresponding to Sunday. Even though the column is day_name, the values are numerical only.
     
     | day_name | num_answers |
     | :------: | :---------: |
@@ -264,11 +271,15 @@ You will be asked to submit a CSV file for each question, and you could download
 
 13. (1 point) What is the percentage of questions that are answered every year?
 
-	List out the year, number of questions (in that year) along with the percentage answered (**multiply by 100 and then round it up**).
+    List out the year, number of questions (in that year) along with the percentage answered (**multiply by 100 and then round it to 2 decimal places**).
 
     A question is said to be answered if the `answer_count` field is greater than zero.
 
-	Order by year.
+	Order by year (ascending order).
+
+     **Clarification**: A question only belongs to the year in which it was created. For example, if a question had a creation year of 2020, then it will *only* belong in 2020. 
+
+     **HINT**: Use the *ROUND* function available in Bigquery.
 
     | year | num_questions | percentage_answered |
     | :--: | :-----------: | :-----------------: |
@@ -278,7 +289,9 @@ You will be asked to submit a CSV file for each question, and you could download
 
     Print only those users with the number of answers greater than 50. Order the same by number of answers in descending order.
 
-    **Clarification**: The `answer_count` and `accepted_answer_id` fields are all null for posts_answers.
+    **Clarification**: 
+     - The `answer_count` and `accepted_answer_id` fields are all null for posts_answers.
+     - **id**: refers to the id of the answer text , **owner_user_id**:  refers to the user who has answered, **parent_id**: refers to the question id that the answer is for.
 
     | id | display_name | reputation | num_answers  |
     | :-:| :-----------:| :---------:| :----------: |
@@ -289,7 +302,7 @@ You will be asked to submit a CSV file for each question, and you could download
 15. (2 points) Follow up to the previous question:
     We would now like to find out the specialists users in python. A user is considered a python specialist if he/she has answered a large number of python based questions on stackoverflow. 
 
-    A python based question is a question which has **“python”** as one the tags.
+    A python based question is a question which has the substring **“python”** as one the tags.
     
     With all the conditions remaining the same from the previous question, print out the top 20 python specialists along with the number of answers posted by them.
 
@@ -366,6 +379,8 @@ When you submit to Gradescope, we will run a syntax checker that will make sure 
 - Check the ordering to make sure all the files are present.
  
  It should run immediately and return whether the query ran OK or if there were errors - please make sure that you get a positive result from this test in your final submission.
+
+**Handling Ties**: You might notice that in case of ties (between two records of the ordering column), bigquery may produce either of the ordering. Do not worry about this. We have configured the autograder to handle ties and grade accordingly.
 
 You will not see a final grade until after the project deadline. It is your responsibility to ensure that your final submission is free from Python or SQL syntax errors and that you follow all instructions in this section. We reserve the right to deduct points from your project if you do not follow the submission instructions, or if you have syntax errors in your queries.
 
