@@ -218,7 +218,7 @@ You will be asked to submit a CSV file for each question, and you could download
 
 9. (2 points) What is the relationship between a user's reputation, and badges earned?
 
-	List out the top 10 users along with the number of golden badges that they have earned.
+	List out the top 10 users who have the highest number of golden badges along with the number of golden badges that they have earned.
     
 	Order by the number of gold badges (desc).
 
@@ -229,7 +229,7 @@ You will be asked to submit a CSV file for each question, and you could download
 
 10. (2 points) **“Illuminator”** is the rarest badge that is awarded by stackoverflow. Up to now, only 148 users have been bestowed with this badge. 
 	
-	We would like to find out how early you can obtain this badge? This time, list out the top 20 users (id, display_name, reputation) along with the number of days it took for them to receive their first illuminator badge (from when they created the account). 
+	We would like to find out how early you can obtain this badge? This time, list out the top 20 users (id, display_name, reputation) who took the lowest number of days to receive their first illuminator badge from when they created the account, along with the number of days it took for them to receive their first illuminator badge (from when they created the account). 
     
     Order by the number of days in ascending order.
 
@@ -243,7 +243,7 @@ You will be asked to submit a CSV file for each question, and you could download
 	The score buckets: <0, 0-100, 101-1000, 1001-10000, >10000
     These are the values of scores in intervals.
 
-	List out the average number of views for each score bucket value. 
+	List out the average number of views for each score bucket value, using the posts_questions table. 
     
     Round it to 2 decimal places and order the same by the average views in ascending order.
     **HINT**: Use the *ROUND* function provided by Bigquery.
@@ -269,7 +269,7 @@ You will be asked to submit a CSV file for each question, and you could download
 
     Interestingly, *Wednesday* has the most answers! It’s not surprising that users do not answer much during weekends.
 
-13. (1 point) What is the percentage of questions that are answered every year?
+13. (1 point) What is the percentage of questions that are answered every year? Note that we attribute the question to the year in which it was posted. For example, if a question was posted in year X and answered in year Y, we count it as a question of year X. A question that was answered has an answer_count field that is greater than zero
 
     List out the year, number of questions (in that year) along with the percentage answered (**multiply by 100 and then round it to 2 decimal places**).
 
@@ -285,9 +285,11 @@ You will be asked to submit a CSV file for each question, and you could download
     | :--: | :-----------: | :-----------------: |
     |      |               |                     |
 
-14. (2 points) List top 20 users with the most number of answers along with their id, display_name, reputation and the number of answers. 
+14. (2 points) List top 20 users who posted the highest number of answers along with their id, display_name, reputation and the number of answers. 
 
     Print only those users with the number of answers greater than 50. Order the same by number of answers in descending order.
+    
+    In the table: the attribute id refers to the id of the answer text, the attribute owner_user_id refers to the user who has answered, and the attribute parent_id refers to the question id that the answer is for.
 
     **Clarification**: 
      - The `answer_count` and `accepted_answer_id` fields are all null for posts_answers.
