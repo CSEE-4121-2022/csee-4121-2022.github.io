@@ -126,7 +126,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">5</td>
-<td markdown="span">Storage/memory hierarchy and key value stores</td>
+<td markdown="span">Storage/memory hierarchy and key value stores (<a href="https://www.dropbox.com/s/aiy5rlmuz8xcpwd/Topic%204%20-%20single%20DB%20architecture.pdf?dl=0">Slides</a>)</td>
 <th></th>
 </tr>
 <tr>
