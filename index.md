@@ -122,7 +122,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">4</td>
 <td markdown="span">Transactions and Logging (<a href="https://www.dropbox.com/s/oajai8bm781wiv0/Topic%203%20-%20transactions%20and%20ACID.pdf?dl=0">Slides</a>)</td>
-<th markdown="1">Written Homework 1 released</th>
+<th markdown="1">[Written Homework 1 released](https://www.gradescope.com/courses/344914/assignments/1882712)</th>
 </tr>
 <tr>
 <td markdown="span">5</td>
@@ -137,7 +137,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">7</td>
 <td markdown="span">Challenges in scaling</td>
-<th markdown="1">Written Homework 1 due</th>
+<th markdown="1">Written Homework 1 due (March 4, 2022 4:59:59PM)</th>
 <th></th>
 </tr>
 <tr>

@@ -4,6 +4,8 @@ Gain a hands-on understanding of Google BigQuery and SQL.
 
 Due: **February 25, 2022 4:59:59 PM**
 
+[Solutions]({{ site.baseurl }}{%link solutions/HW1-Solutions.zip %})
+
 ## Overview
 
 Welcome to CSEE4121! This assignment will help you get familiar with the Google BigQuery platform and the SQL language.
