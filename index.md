@@ -142,7 +142,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">8</td>
-<td markdown="span">Midterm (all material up to, not including RocksDB), March 11 9:00 AM - 5:00 PM</td>
+<td markdown="span">Midterm (all material up to Topic 4, not including RocksDB)</td>
 </tr>
 <tr>
 <td markdown="span">9</td>
