@@ -181,7 +181,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">16</td>
-<td markdown="span">Final Exam</td>
+<td markdown="span">Final Exam: May 6</td>
 <th></th>
 </tr>
 </tbody>
