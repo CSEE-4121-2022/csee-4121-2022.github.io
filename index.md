@@ -126,24 +126,23 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">5</td>
-<td markdown="span">Storage/memory hierarchy and key value stores (<a href="https://www.dropbox.com/s/aiy5rlmuz8xcpwd/Topic%204%20-%20single%20DB%20architecture.pdf?dl=0">Slides</a>)</td>
+<td markdown="span">Storage/memory hierarchy (<a href="https://www.dropbox.com/s/aiy5rlmuz8xcpwd/Topic%204%20-%20single%20DB%20architecture.pdf?dl=0">Slides</a>)</td>
 <th></th>
 </tr>
 <tr>
 <td markdown="span">6</td>
-<td markdown="span"> Distributed databases and file systems</td>
+<td markdown="span"> Indices and bloom filters</td>
 <th markdown="1">Programming Homework 1 due (February 25, 2022 4:59:59PM)</th>
 </tr>
 <tr>
 <td markdown="span">7</td>
-<td markdown="span">Challenges in scaling</td>
-<th markdown="1">Written Homework 1 due (March 4, 2022 4:59:59PM)</th>
+<td markdown="span">Distributed file systems (<a href="https://www.dropbox.com/s/q3hloco1elfgek9/Topic%205%20-%20Distributed%20File%20Systems%20and%20Databases.pdf?dl=0">Slides</a>)</td>
+<th markdown="1">Written Homework 1 due (March 6, 2022 4:59:59PM)</th>
 <th></th>
 </tr>
 <tr>
 <td markdown="span">8</td>
-<td markdown="span">Midterm (all material up to, not including Challenges in scaling)</td>
-<th markdown="1">Programming Homework 2 released</th>
+<td markdown="span">Midterm (all material up to, not including RocksDB), March 11 9:00 AM - 5:00 PM</td>
 </tr>
 <tr>
 <td markdown="span">9</td>
