@@ -12,7 +12,8 @@ CSEE4121 - Computer Systems for Data Science
 Spring '22, Columbia University
 {: style="color:black; font-size: 130%; text-align: center; padding-bottom: 30px;"}
 
-[Programming Homework 1]({{ site.baseurl }}{%link homeworks/hw1.md %})
+[Programming Homework 1]({{ site.baseurl }}{%link homeworks/hw1.md %}) | 
+[Written Homework 1 solutions]({{ site.baseurl }}{%link solutions/Written HW1 - Solutions.pdf %})
 
 ----
 
