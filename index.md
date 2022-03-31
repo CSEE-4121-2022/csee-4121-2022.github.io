@@ -13,7 +13,8 @@ Spring '22, Columbia University
 {: style="color:black; font-size: 130%; text-align: center; padding-bottom: 30px;"}
 
 [Programming Homework 1]({{ site.baseurl }}{%link homeworks/hw1.md %}) | 
-[Written Homework 1 solutions]({{ site.baseurl }}{%link solutions/Written HW1 - Solutions.pdf %})
+[Written Homework 1 solutions]({{ site.baseurl }}{%link solutions/Written HW1 - Solutions.pdf %}) |
+[Programming Homework 2]({{ site.baseurl }}{%link homeworks/hw2.md %})
 
 ----
 
@@ -144,6 +145,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">8</td>
 <td markdown="span">Midterm (all material up to Topic 4, not including RocksDB)</td>
+<th></th>
 </tr>
 <tr>
 <td markdown="span">9</td>
@@ -158,16 +160,17 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">11</td>
 <td markdown="span">Spark and distributed analytics</td>
-<th></th>
+<th markdown="1">[Programming Homework 2 released]({{ site.baseurl }}{%link homeworks/hw2.md %})</th>
 </tr>
 <tr>
 <td markdown="span">12</td>
 <td markdown="span">Caching</td>
-<th markdown="1">Programming Homework 2 due, Written Homework 2 out</th>
+<th></th>
 </tr>
 <tr>
 <td markdown="span">13</td>
 <td markdown="span">Security and privacy</td>
+<th markdown="1">Written Homework 2 out</th>
 <th></th>
 </tr>
 <tr>
@@ -178,7 +181,7 @@ Students are expected to have solid programming experience in Python or with an 
 <tr>
 <td markdown="span">15</td>
 <td markdown="span">Review</td>
-<th markdown="1">Written Homework 2 due</th>
+<th markdown="1">Programming Homework 2 due, Written Homework 2 due(April 29, 2022 4:59:59PM)</th>
 </tr>
 <tr>
 <td markdown="span">16</td>

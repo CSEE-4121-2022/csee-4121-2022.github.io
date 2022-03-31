@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Programming Homework 2: A Tour of Apache Spark | CSEE4121-2022</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Programming Homework 2: A Tour of Apache Spark" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course website for CSEE4121 @ Columbia University." />
+<meta property="og:description" content="Course website for CSEE4121 @ Columbia University." />
+<link rel="canonical" href="http://localhost:4000/homeworks/hw2.html" />
+<meta property="og:url" content="http://localhost:4000/homeworks/hw2.html" />
+<meta property="og:site_name" content="CSEE4121-2022" />
+<script type="application/ld+json">
+{"description":"Course website for CSEE4121 @ Columbia University.","@type":"WebPage","url":"http://localhost:4000/homeworks/hw2.html","headline":"Programming Homework 2: A Tour of Apache Spark","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=8916b4cf80b8cdcce644dcdae1b1f2b174abd085">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="color: black; font-size: 100%;">
+    <div class="wrapper">
+      <h1 id="programming-homework-2-a-tour-of-apache-spark">Programming Homework 2: A Tour of Apache Spark</h1>
+
+<p>Gain a hands-on understanding of Google Cloud Dataproc, Apache Spark, Spark SQL, and Spark Streaming over HDFS.</p>
+
+<p>Due: <strong>April 29, 2022 4:59:59 PM</strong></p>
+
+<p><a href="/homeworks/hw2_supp.pdf">Supplementary Material</a></p>
+
+<h2 id="overview">Overview</h2>
+
+<p>First introduced in <a href="https://www.usenix.org/legacy/event/hotcloud10/tech/full_papers/Zaharia.pdf">2010</a>, Apache Spark is one of the most popular modern cluster computing frameworks.</p>
+
+<p>By leveraging its innovative distributed memory abstraction – Resilient Distributed Datasets (RDDs) – Apache Spark provides an effective solution to the I/O inefficiency of MapReduce, while retaining its scalability and fault tolerance.</p>
+
+<p>In this assignment, you are going to deploy Spark and HDFS, write a Spark program generating a web graph from the entire Wikipedia, and write a PageRank program to analyze the web graph.</p>
+
+<p>You will run those applications using Spark over HDFS in Google Cloud Dataproc.</p>
+
+<p>Finally, you will write a stream emitter using Spark Streaming and a parser using Spark Structured Streaming to play with the recent trend of working with streaming data.</p>
+
+<p>As a well-maintained open-source framework, Apache Spark has well-written official documents; you will find a lot of useful information by simply reading the official tutorials and documents.</p>
+
+<p>When you encounter an issue regarding cluster deployment or write Spark programs, you are encouraged to utilize online resources before posting questions on Piazza.</p>
+
+<h2 id="learning-outcomes">Learning Outcomes</h2>
+
+<p>After completing this programming assignment, students should be able to:</p>
+
+<ul>
+  <li>Deploy and configure Apache Spark, HDFS in Google Cloud Dataproc.</li>
+  <li>Write Spark applications using Python with Jupyter Notebook and launch them in the cluster.</li>
+  <li>Describe how Apache Spark, Spark SQL, Spark Streaming, HDFS work, and interact with each other.</li>
+</ul>
+
+<h2 id="environment-setup">Environment Setup</h2>
+<p>You will complete your assignment in Google Cloud Dataproc, which is a managed cloud service for Spark and Hadoop, which allows users to spin up Spark and Hadoop instances quickly.</p>
+
+<p>First, make sure you have followed the <a href="http://www.cs.columbia.edu/crf/cloud-cs/">instructions</a> provided by CRF to redeem your credits in Google Cloud.</p>
+
+<p>Then, use the following <a href="https://console.cloud.google.com/dataproc">link</a>, and click on <code class="language-plaintext highlighter-rouge">Enable API</code> to enable Google Cloud Dataproc. <strong>Note</strong>: you could pin Dataproc on your navigation menu for quick access.</p>
+
+<p>Click on <code class="language-plaintext highlighter-rouge">Create cluster</code> to create your first Dataproc Cluster. Notice there are three Cluster modes you could choose from: Single Node, Standard, and High Availability. We will start with a Single Node cluster.</p>
+
+<p><img src="/homeworks/pics/SingleNode.jpeg" alt="Cluster Mode" /></p>
+
+<h4 id="jupyter-notebook">Jupyter Notebook</h4>
+<p>You will use Python and Jupyter Notebook for this project. If you are unfamiliar with Jupyter Notebook, <a href="https://towardsdatascience.com/jypyter-notebook-shortcuts-bf0101a98330">this</a> tutorial might be helpful.</p>
+
+<p>Google provides an easy interface to install and access Jupyter notebook when creating Dataproc cluster. Go down to <strong>Component gateway</strong> and select <strong>Enable access to the web interfaces of default and selected optional components on the cluster</strong>. Then click on <code class="language-plaintext highlighter-rouge">Advanced options</code>.
+<img src="/homeworks/pics/SelectComponentGateway.jpeg" alt="Select Component" /></p>
+
+<p>Go down to <strong>Optional components</strong> and click on <code class="language-plaintext highlighter-rouge">Select component</code>. In the pop-up window, choose Anaconda and Jupyter Notebook (If you are using 2.0 Image Type such as 2.0-debian10, you don’t need to choose Anaconda, it is pre-installed with miniconda, see <a href="https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-release-2.0">this</a>). Make sure you click on <code class="language-plaintext highlighter-rouge">Select</code> to save your changes.
+<img src="/homeworks/pics/SelectAnacondaAndJupyterNotebook.jpeg" alt="Choose Component" /></p>
+
+<p>You could refer to <a href="https://cloud.google.com/dataproc/docs/tutorials/jupyter-notebook">this</a> doc for more details.</p>
+
+<h4 id="cluster-properties">Cluster properties</h4>
+<p>Components like Spark and Hadoop have many configurations that users could tune. You could change the default values of those settings when creating the Dataproc cluster. Refer to <a href="https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/cluster-properties?hl=en_US&amp;_ga=2.227749979.-739108073.1578339387">this</a> doc for a more detailed explanation. 
+For example, if you want to change the default block size of HDFS to 64MB, you could change it by adding a cluster property under <strong>Cluster properties</strong> in the Advanced Options section.
+<img src="/homeworks/pics/ClusterProperty.jpeg" alt="Cluster Property" /></p>
+
+<h4 id="optional-tip">Optional Tip:</h4>
+<p>Since you will be working with Jupyter Notebooks on a dataproc cluster, it becomes important to save your notebook time and time again. This is needed to protect your work in case your cluster goes down for some reason.</p>
+
+<p>There are two ways to do this – manual and ideal.</p>
+<ul>
+  <li>Manual Method: Everytime you complete a significant portion of your task or whenever you stop/shut down your instance, manually download the jupyter notebook and save it on your local machine. Incase your notebook on the cluster VM gets corrupted, you can recover from your local machine.</li>
+  <li>
+    <p>Ideal Method (recommended): This method involves attaching a cloud storage bucket with your dataproc cluster. This will allow dataproc to automatically save the notebook on a cloud storage bucket (whenever you save your notebook). Thus, you can always fetch your notebook from the bucket itself.</p>
+
+    <p>#### Steps:</p>
+    <ul>
+      <li>Create a cloud storage bucket with default configurations and any suitable name as per your preference. Follow <a href="https://cloud.google.com/storage/docs/creating-buckets">this</a> for more details on how to create a bucket on GCP.</li>
+      <li>While creating a dataproc cluster, go to <code class="language-plaintext highlighter-rouge">Customize Cluster</code> and <code class="language-plaintext highlighter-rouge">Cloud Storage staging bucket</code>. Click <code class="language-plaintext highlighter-rouge">Browse</code> to select the bucket that you created in the previous step.
+  <img src="/homeworks/pics/bucket_dataproc.png" alt="Bucket with Dataproc" /></li>
+    </ul>
+
+    <p><strong>NOTE</strong>: This step is optional but recommended. This is to prevent unforseen scenarios wherein you might lose all your progress because of a cluster failure.</p>
+  </li>
+</ul>
+
+<h2 id="part-1-spark-and-spark-sql">Part 1: Spark and Spark SQL</h2>
+
+<p>In this part of the assignment, you will perform 3 tasks</p>
+
+<ul>
+  <li>Get yourself familiarized with the interface and ingesting a Wikipedia database into HDFS</li>
+  <li>Parse the Wikipedia database to generate a webgraph of the internal links</li>
+  <li>Use the generated graph as an input to a Spark PageRank program to generate the ranks of the internal links.</li>
+</ul>
+
+<h2 id="task-1-getting-started-10-points">Task 1: Getting Started (10 Points)</h2>
+<p>Once you have created the cluster, you have full control over the VM, you could download any package you would need. Click on the cluster name to go to <strong>Cluster details</strong> page. Go to the <strong>VM Instances</strong> tab and click on <strong>SSH</strong>, run the following command to download all files to local HDFS. The files might take a while to transfer. In the meantime, <a href="https://data-flair.training/blogs/top-hadoop-hdfs-commands-tutorial/">here</a> is a tutorial for HDFS commands which might be helpful.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-cp</span> gs://csee4121/homework2/enwiki_small.xml /
+hdfs dfs <span class="nt">-cp</span> gs://csee4121/homework2/enwiki_test.xml /
+hdfs dfs <span class="nt">-cp</span> gs://csee4121/homework2/enwiki_whole.xml /
+</code></pre></div></div>
+
+<p>You can also check your hdfs file through</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hdfs dfs <span class="nt">-ls</span> /
+</code></pre></div></div>
+
+<p>Also, you would need an external package in order to parse XML files. You need to download  <a href="https://libraries.io/maven/com.databricks:spark-xml_2.12">spark-xml</a> with version <code class="language-plaintext highlighter-rouge">2.12-0.14.0</code> to support Spark 3.1.2 and Scala 2.12 in  the default 2.0-debian10 image type when you create your cluster. You might need to run it on <strong>all</strong> of your VMs if you have multiple machines in your cluster.</p>
+
+<p>You can also download it to your local vm instance by the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>hdfs dfs <span class="nt">-get</span> gs://csee4121/homework2/spark-xml_2.12-0.14.0.jar /usr/lib/spark/jars/
+</code></pre></div></div>
+<p>Now you could go to the <strong>Web Interfaces</strong> tab and use the <code class="language-plaintext highlighter-rouge">Jupyter</code> link to open Jupyter Notebook Interface.</p>
+
+<p>In this task, we provide you a big Wikipedia database in XML format. It can be found at <code class="language-plaintext highlighter-rouge">/enwiki_whole.xml</code> in your HDFS.</p>
+
+<p>This input file is very big and you have to use a distributed file system like HDFS to handle it. We have also provided a smaller file <code class="language-plaintext highlighter-rouge">/enwiki_small.xml</code> for debugging purposes.</p>
+
+<p>The XML files are structured as follow:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;mediawiki&gt;</span>
+    <span class="nt">&lt;siteinfo&gt;</span>
+        ...
+    <span class="nt">&lt;/siteinfo&gt;</span>
+    <span class="nt">&lt;page&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Title A<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;revision&gt;</span>
+            <span class="nt">&lt;text&gt;</span>Some text<span class="nt">&lt;/text&gt;</span>
+        <span class="nt">&lt;/revision&gt;</span>
+    <span class="nt">&lt;/page&gt;</span>
+    <span class="nt">&lt;page&gt;</span>
+        ...
+    <span class="nt">&lt;/page&gt;</span>
+    ...
+<span class="nt">&lt;/mediawiki&gt;</span>
+</code></pre></div></div>
+
+<p>To get a sense of how a Wiki page transfers to a xml file, take a look at the following examples:</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Apple">Apple (orig)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Special:Export/Apple">Apple (xml)</a></li>
+</ul>
+
+<p>Note that the database we provide you is not up-to-date, but they should be pretty close to what you will find in the above examples.</p>
+
+<h3 id="submit-a-job">Submit a job</h3>
+<p>Once you are done with the debugging process on the Jupyter Notebook you could download it as a python file and submit it as a job to run on the cluster.  Here is a way to submit a job through google cloud console:
+<img src="/homeworks/pics/SubmitJob.jpeg" alt="Submit Job" /></p>
+
+<p>The following is an example job.</p>
+
+<p><img src="/homeworks/pics/ExampleSubmitJob.jpeg" alt="example job" /></p>
+
+<p>Notice you could specify python file to run from the Google Cloud Storage. Also, when you need to read the XML files, please make sure you have included the jar file. Besides, you could specify the number of cores and memory for driver and executor here.</p>
+
+<p>You could refer to <a href="https://cloud.google.com/dataproc/docs/guides/submit-job">this</a> doc to learn more about submitting a job. You can also submit a job in other ways.</p>
+
+<p><strong>Question 1.</strong> (4 points) What is the default block size on HDFS? What is the default replication factor of HDFS on Dataproc?</p>
+
+<p>Write a spark program to read in the <code class="language-plaintext highlighter-rouge">/enwiki_small.xml</code> file as a Dataframe and use printSchema() function to print its schema, you could start from something like following. Copy the outputted schema to a <strong>separate txt file</strong> named <strong>schema.txt</strong>. (6 points)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="s">'xml'</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">rowTag</span><span class="o">=</span><span class="s">'page'</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">'hdfs:/enwiki_small.xml'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>If you are having trouble debugging your code using Jupyter, you could consider adding the following environment variable at the top of your notebook.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'PYSPARK_SUBMIT_ARGS'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'--packages com.databricks:spark-xml_2.12:0.14.0 pyspark-shell'</span>
+</code></pre></div></div>
+
+<p>Note that the notebook type should be Python 3, not PySpark.</p>
+
+<h3 id="best-practices">Best Practices</h3>
+
+<ul>
+  <li>Delete the cluster after you are done for a coding session, do not leave them on overnight. Otherwise you are going burn through credits really quickly.</li>
+  <li>Start from small. Start with small files and use one node setup to debug your code. Then try to run your code on bigger files and three-node setup.</li>
+  <li>It is recommended to use Jupyter Notebook to debug your code. But do make sure you have shutdown all of your Jupyter notebooks before you submit your job using the web interface.</li>
+  <li>Notice it is possible to use Google Cloud Storage</li>
+</ul>
+
+<h3 id="task-2-webgraph-on-internal-links-50-points">Task 2: Webgraph on Internal Links (50 Points)</h3>
+
+<p>You are going to write a Spark program which takes the xml file you ingested as input, and generate a csv file which describes the webgraph of the internal links in Wikipedia. The csv file should look like the following:</p>
+
+<pre><code class="language-csv">article1	article0
+article1	article2
+article1	article3
+article2	article3
+article2	article0
+...
+</code></pre>
+
+<p>It is hard and tedious to find every internal link on a page. We have made the following assumptions to simplify the string parsing for you. For each page element, the article on the left column corresponds to the string between <code class="language-plaintext highlighter-rouge">&lt;title&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;/title&gt;</code>, while the article on the right column are those surrounded by a pair of double brackets <code class="language-plaintext highlighter-rouge">[[ ]]</code> in the <code class="language-plaintext highlighter-rouge">&lt;text&gt;</code> field in the xml file with the following requirements:</p>
+
+<ol>
+  <li>All the letters should be convert to lower case.</li>
+  <li>If the internal link contains a <code class="language-plaintext highlighter-rouge">:</code>, you should ignore the entire link unless it starts with <code class="language-plaintext highlighter-rouge">Category:</code>.</li>
+  <li>Ignore links that contain a <code class="language-plaintext highlighter-rouge">#</code>.</li>
+  <li>If multiple links appear in the brackets, take the first one; e.g., take <code class="language-plaintext highlighter-rouge">A</code> in <code class="language-plaintext highlighter-rouge">[[A|B]]</code>.</li>
+</ol>
+
+<p>Those assumptions help you filter out some unnecessary links. Note if the remaining string becomes empty after the filtering, you should also ignore them. When we say ignoring a link, we mean it will not show up in the output file of this task.</p>
+
+<p>The two columns in the output file should be separated by a <code class="language-plaintext highlighter-rouge">Tab</code>. You may assume there are no other <code class="language-plaintext highlighter-rouge">Tab</code>s in the article name.</p>
+
+<p><strong>Note</strong>: It is recommended to use UDF + regular expression to extract links from the documents. Also, try to use the built in functions of spark to sort your results.</p>
+
+<p><strong>You should use the default configuration of Spark, HDFS, unless we specify a different one.</strong></p>
+
+<p>Set the <strong>Spark driver memory</strong> to 1GB and the <strong>Spark executor memory</strong> to 5GB to answer Question 2-4.</p>
+
+<p>For the following questions you will need to use the xmls as the input file, and output columns into a CSV file. Separate the columns with a <code class="language-plaintext highlighter-rouge">Tab</code>.</p>
+
+<p><strong>Question 2.</strong>  (2 points) Use <code class="language-plaintext highlighter-rouge">enwiki_test.xml</code> as input and run the program locally on a Single Node cluster using 4 cores. Include your screenshot of the dataproc job. What is the completion time of the task?</p>
+
+<p><strong>Question 3.</strong> (2 points) Use <code class="language-plaintext highlighter-rouge">enwiki_test.xml</code> as input and run the program under HDFS inside a 3 node cluster (2 worker nodes).  Include your screenshot of the dataproc job. Is the performance getting better or worse in terms of completion time? Briefly explain.</p>
+
+<p><strong>Question 4.</strong> (2 points) For this question, change the default block size in HDFS to be 64MB and repeat Question 3.   Include your screenshot of the dataproc job.  Record run time, is the performance getting better or worse in terms of completion time? Briefly explain.</p>
+
+<p>Set the <strong>Spark driver memory</strong> to 5GB and the <strong>Spark executor memory</strong> to 5GB to answer Question 5-7. Use this configuration across the entire assignment whenever you generate a web graph from <code class="language-plaintext highlighter-rouge">enwiki_whole.xml</code>.</p>
+
+<p><strong>Question 5.</strong> (2 points) Use <code class="language-plaintext highlighter-rouge">enwiki_whole.xml</code> as input and run the program under HDFS inside the Spark cluster you deployed. Record the completion time. Now, kill one of the worker nodes immediately. You could kill one of the worker nodes by go to the <strong>VM Instances</strong> tab on the Cluster details page and click on the name of one of the workers. Then click on the STOP button. Record the completion time. Does the job still finish? Do you observe any difference in the completion time? Briefly explain your observations.  Include your screenshot of the dataproc jobs.</p>
+
+<p><img src="/homeworks/pics/StopVM.jpeg" alt="Stop worker" /></p>
+
+<p><strong>Question 6.</strong> (2 points) Only for this question, change the replication factor of <code class="language-plaintext highlighter-rouge">enwiki_whole.xml</code> to 1 and repeat Question 5 without killing one of the worker nodes.  Include your screenshot of the dataproc job. Do you observe any difference in the completion time? Briefly explain.</p>
+
+<p><strong>Question 7.</strong> (2 points) Only for this question, change the default block size in HDFS to be 64MB and repeat Question 5 without killing one of the worker nodes.  Record run time,  include your screenshot of the dataproc job. Is the performance getting better or worse in terms of completion time? Briefly explain.</p>
+
+<p>Besides answering these questions in README,  you also need to submit the code. You need to use <code class="language-plaintext highlighter-rouge">enwiki_small.xml</code> as the input file, and sort both output columns in ascending order and save the first 5 rows into a CSV file and name it p1t2.csv. Separate the columns with a <code class="language-plaintext highlighter-rouge">Tab</code>. (28 points for code + output, 10 points for correctness of the approach)</p>
+
+<h3 id="task-3-spark-pagerank-40-points">Task 3: Spark PageRank (40 Points)</h3>
+
+<p>In this task, you are going to implement the PageRank algorithm, which Google uses to rank the website in the Google Search. We will use it to calculate the rank of the articles in Wikipedia. The algorithm can be summarized as follows:</p>
+
+<ol>
+  <li>Each article has an initial rank of 1.</li>
+  <li>On each iteration, the contribution of an article A to its neighbor B is calculated as <code class="language-plaintext highlighter-rouge">its rank / # of neighbors</code>.</li>
+  <li>Update the rank of the article B to be <code class="language-plaintext highlighter-rouge">0.15 + 0.85 * contribution</code></li>
+  <li>Go to the next iteration.</li>
+</ol>
+
+<p>The output should be a <code class="language-plaintext highlighter-rouge">csv</code> file containing two columns.
+The first column is the article and the other column describes its rank.
+Separate the columns with a <code class="language-plaintext highlighter-rouge">Tab</code>.</p>
+
+<p>Set the Spark driver memory to 5GB and the Spark executor memory to 5GB whenever you run your PageRank program. Write a script to first run Task 2, and then run Task 3 using the csv output generated by Task 2, and answer the following questions. Always use 10 iterations for the PageRank program. When running Task 2, use <code class="language-plaintext highlighter-rouge">enwiki_whole.xml</code> as input.</p>
+
+<p><strong>Question 8.</strong> (2 points)  Use your output from Task 2 with <code class="language-plaintext highlighter-rouge">enwiki_whole.xml</code> as input, run Task 3 using a 3 node cluster (2 worker nodes). Include your screenshot of the dataproc job.  What is the completion time of the task?</p>
+
+<p>To submit the code part of the assignment you will need to use <code class="language-plaintext highlighter-rouge">enwiki_small.xml</code> as the input file for Task 2 and then run your code for Task 3, and sort both output columns for Task 3 in ascending order and save the first 5 rows into a CSV file and name it p1t3.csv. Separate the columns with a <code class="language-plaintext highlighter-rouge">Tab</code>. (28 points for code + output, 10 points for correctness of the approach)</p>
+
+<h2 id="part-2-spark-streaming-20-extra-credits">Part 2: Spark Streaming (20 Extra Credits)</h2>
+
+<p>In the second part of the assignment, you will learn Spark Streaming as well as Spark Structured Streaming, and write a program for each of them.</p>
+
+<p>Spark Streaming is an extension of the core Spark API that enables scalable, high-throughput, fault-tolerant stream processing of live data streams.</p>
+
+<p><img src="/homeworks/pics/streaming-arch.png" alt="streaming-arch" /></p>
+
+<p>Internally, Spark Streaming receives live input data streams and divides the data into batches, which are then processed by the Spark engine to generate the final stream of results in batches. More information about Spark Streaming can be found <a href="https://spark.apache.org/docs/latest/streaming-programming-guide.html">here</a>.</p>
+
+<p><img src="/homeworks/pics/streaming-flow.png" alt="streaming-flow" /></p>
+
+<p>Spark Structured Streaming is a new high-level API introduced after Apache Spark 2.0 to support continuous applications. It provides fast, scalable, fault-tolerant, and end-to-end exactly-once stream processing without the user having to reason about streaming. The key idea here is to treat a live data stream as a table that is being continuously appended. You are encouraged to read its <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html">programming guide</a>.</p>
+
+<p><img src="/homeworks/pics/structured-streaming.png" alt="structured-streaming" /></p>
+
+<h3 id="task-1-stream-receiver-10-points">Task 1: Stream Receiver (10 points)</h3>
+
+<p>In this task, you are going to write a stream receiver using <strong>Spark Structured Streaming</strong> to read file source while the file is being generated. The input source should be <code class="language-plaintext highlighter-rouge">csv</code> files. Your receiver should keep a list of articles whose rank is greater than <strong>0.5</strong> and store the file inside the HDFS. The list should be updated dynamically while the Pagerank program is dumping the output and should be saved inside the HDFS.</p>
+
+<p>The output file should be <code class="language-plaintext highlighter-rouge">csv</code> whose the format should look like the following. Separate the columns with a <code class="language-plaintext highlighter-rouge">Tab</code>. To submit, only submit your Jupyter notebook files.  (8 points for code)</p>
+
+<p><strong>Note</strong>: It might be helpful to create your own csv to test or debug the code. If your stream receiver is running then it should generate output.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>article0	rank0
+article1	rank1
+article2	rank2
+...
+</code></pre></div></div>
+
+<p><strong>Question 9</strong> (2 points) Start a PageRank program you wrote in Part 1 Task 3 whose input is the link graph generated from “enwiki_whole.xml” and store the output to a directory inside HDFS. Set your stream receiver to read the files generated by the PageRank program. Kill the receiver when the PageRank task is finished. How many articles in the database has a rank greater than <strong>0.5</strong>? You can SSH into the master node and start with ‘hdfs dfs -mv’ or ‘mv’ to help you write your program.</p>
+
+<h3 id="task-2-stream-emitter-10-points">Task 2: Stream Emitter (10 points)</h3>
+
+<p>In this task, you are going to write a stream emitter using <strong>Spark Streaming</strong> to emit the ‘txt’ file output generated by the PageRank program to a directory to emulate the case you see in the previous task. Run your stream receiver to catch the stream you are emitting and check if you get the same result as in Question 9.</p>
+
+<p>To submit, include your Jupyter notebook files.  (6 points for code)</p>
+
+<p><strong>Question 10</strong> (2 points) Spark Streaming can also be used to send data via TCP sockets. The Emitter in this case will wait on a socket connection request from the receiver, and upon accepting the connection request it will start sending data. Do you think such data server design is feasible and efficient? Briefly explain.</p>
+
+<p><strong>Questions 11</strong> (2 points) How many hours did you spend in this assignment?</p>
+
+<h2 id="submission-instructions">Submission Instructions</h2>
+
+<h3 id="file-name">File name</h3>
+
+<p>Each group should submit one zip file to Gradescope.
+Only one teammember need to submit the file, make sure the team members are assigned to the submission.</p>
+
+<p>Name the file as <code class="language-plaintext highlighter-rouge">&lt;UNI-1&gt;_&lt;UNI-2&gt;.zip</code>.
+For example, <code class="language-plaintext highlighter-rouge">slj2142_rc3374.zip</code>.</p>
+
+<h3 id="content---code">Content - Code</h3>
+
+<p>4 Spark projects from Part 1 Task 2-3 and Part 2 Task 1-2 should goes under folder names
+<code class="language-plaintext highlighter-rouge">p1t2</code>, <code class="language-plaintext highlighter-rouge">p1t3</code>, <code class="language-plaintext highlighter-rouge">p2t1</code>, <code class="language-plaintext highlighter-rouge">p2t2</code> accordingly.</p>
+
+<p>Inside each folder, in addition to Jupyter notebook and python files, there should be an additional file named <code class="language-plaintext highlighter-rouge">config</code> which describes configurations or addition step you did to run the three tasks mentioned below.</p>
+
+<p>You also need to provide a <code class="language-plaintext highlighter-rouge">config</code> file which describes configurations or addition step you did to run the **following 3 tasks on a single Spark node **</p>
+
+<ol>
+  <li>Use the program in Part 1 Task 2 to take “<em>enwiki_small.xml</em>” as input to generate the graph.</li>
+  <li>Use the program in Part 1 Task 3 to take the graph you just generated and output a rank list of the articles in the dataset.</li>
+  <li>(Optional) Use the stream emitter you wrote in Part 2 Task 2 to emit the rank list output in the previous step to a local directory while using the stream receiver you wrote in Part 2 Task 1 to dynamically read the files and generate the output mentioned in Part 2 Task 1.</li>
+</ol>
+
+<p>Try to be clear about the instructions to run these steps. The purpose of doing this is to check if your program does what we mentioned in the spec. Do not worry whether your program has the lowest completion time.</p>
+
+<p>The structure should be something like</p>
+
+<pre><code class="language-plain">g1.zip
+├── p1t1
+│	├── schema.txt
+├── p1t2
+│   ├── config
+│   ├── p1t2.py
+│   ├── p1t2.csv
+|   ├── p1t2.ipynb
+├── p1t3
+├── p2t1
+├── p2t2
+└── README (see below)
+</code></pre>
+
+<h3 id="content---readme">Content - README</h3>
+
+<p>Each submission should also include a README to record the answers to the 11 (last 3 optional) questions mentioned in this assignment.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>This assignment is based on Peifeng Yu and Mosharaf Chowdhury’s UMICH EECS598: Advanced Topics on Systems for X.</p>
+
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+  </body>
+</html>

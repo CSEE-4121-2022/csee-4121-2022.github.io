@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Programming Homework 1: SQL | CSEE4121-2022</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Programming Homework 1: SQL" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course website for CSEE4121 @ Columbia University." />
+<meta property="og:description" content="Course website for CSEE4121 @ Columbia University." />
+<link rel="canonical" href="http://localhost:4000/homeworks/hw1.html" />
+<meta property="og:url" content="http://localhost:4000/homeworks/hw1.html" />
+<meta property="og:site_name" content="CSEE4121-2022" />
+<script type="application/ld+json">
+{"description":"Course website for CSEE4121 @ Columbia University.","@type":"WebPage","url":"http://localhost:4000/homeworks/hw1.html","headline":"Programming Homework 1: SQL","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=8916b4cf80b8cdcce644dcdae1b1f2b174abd085">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="color: black; font-size: 100%;">
+    <div class="wrapper">
+      <h1 id="programming-homework-1-sql">Programming Homework 1: SQL</h1>
+
+<p>Gain a hands-on understanding of Google BigQuery and SQL.</p>
+
+<p>Due: <strong>February 25, 2022 4:59:59 PM</strong></p>
+
+<p><a href="/solutions/HW1-Solutions.zip">Solutions</a></p>
+
+<h2 id="overview">Overview</h2>
+
+<p>Welcome to CSEE4121! This assignment will help you get familiar with the Google BigQuery platform and the SQL language.
+Google has published many datasets on BigQuery – these range from StackOverflow statistics to real-time air quality data. In this first assignment, you will be using BigQuery’s SQL interface to answer questions about the Stackoverflow Dataset.</p>
+
+<h2 id="learning-outcomes">Learning Outcomes</h2>
+
+<p>After completing this programming assignment, students should be able to:</p>
+
+<ul>
+  <li>Write SQL queries on the Google BigQuery platform.</li>
+  <li>Use SQL to perform a preliminary analysis of any dataset.</li>
+</ul>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>This section will guide you through creating a BigQuery project and setting up your account so that you can query the stackoverflow dataset.</p>
+
+<ol>
+  <li>
+    <p>Make sure you have followed the <a href="http://www.cs.columbia.edu/crf/cloud-cs/">instructions</a> provided by CRF to redeem your credits in Google Cloud.</p>
+  </li>
+  <li>
+    <p>Click this <a href="https://console.cloud.google.com/projectselector2/home/dashboard?_ga=2.206924560.-2028360840.1569012083">link</a>. You’ll see the page below; click “Create” to make a GCP (Google Cloud Platform) project.<img src="/homeworks/pics/createProject.jpeg" alt="create project" /></p>
+  </li>
+  <li>
+    <p>Fill in the information to make a new project. Make sure to select the new billing account you should have after getting the class credits.</p>
+
+    <p><img src="/homeworks/pics/fillProjectInfo.jpeg" alt="Fill Info" /></p>
+  </li>
+  <li>
+    <p>Please select the correct billing account for your new project. The billing account should be the one that you obtained from redeeming your GCP credits.</p>
+
+    <p>Incase you chose the wrong billing account while creating the project, you can change the billing account later as well:</p>
+
+    <ul>
+      <li>
+        <p>If you only have one billing account (obtained from redeeming your credits), then it will automatically be linked with the newly created project (in Step 3).</p>
+      </li>
+      <li>
+        <p>But, if you had multiple billing accounts, then it is important to link the project with the right one. Please follow the <a href="https://cloud.google.com/billing/docs/how-to/modify-project#to_change_the_projects_account_do_the_following">instructions</a> mentioned to change the billing account for your project to the one created in Step 1.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Go to this <a href="https://console.cloud.google.com/bigquery?project=bigquery-public-data&amp;page=project">link</a>, which is the page for BigQuery’s public datasets. In the top-right corner of the bottom panel, click the <code class="language-plaintext highlighter-rouge">PIN PROJECT</code>. <img src="/homeworks/pics/pinPublicDataset.jpeg" alt="Pin Project" /></p>
+
+    <p>Now when you visit the console, you’ll be able to easily find the datasets in your sidebar. Scroll down in the <code class="language-plaintext highlighter-rouge">bigquery-public-dataset</code> to find the <code class="language-plaintext highlighter-rouge">stackoverflow</code> dataset.</p>
+
+    <!-- <img src="./pics/sidebar_stackoverflow.png" alt="side bar" style="zoom:70%;" /> -->
+  </li>
+  <li>
+    <p>Click on the dataset, and you should see 16 tables in the dataset. Click on each table, and you should see the schema and descriptions of each table.</p>
+
+    <p>Although we will be dealing with only a subset of these tables, it is recommended to get yourself familiar with these tables before you jump into writing queries. We intend for this assignment to be about how to translate a question in plain English to a schema - in other words, we want you to read the tables and explore the data and think about which tables and columns are necessary in answering the question we’re asking. This is how real world data querying and analysis works!</p>
+  </li>
+  <li>
+    <p>Click on <code class="language-plaintext highlighter-rouge">QUERY TABLE</code> on the bottom panel to start a query on a table. <img src="/homeworks/pics/query_table.png" alt="query table" /></p>
+  </li>
+  <li>
+    <p>Once you typed in your query, you should notice there is a green validator on the bottom right corner of the top panel. It will give you an estimation of how much data will be processed to run this query. <strong>Note:</strong> you will be billed by the number of bytes read by each query, and each month only the <strong>first 1TB is free</strong>, so be careful and try to avoid using <strong>SELECT *</strong></p>
+
+    <p><img src="/homeworks/pics/query_green_tick.png" alt="validator" /></p>
+  </li>
+  <li>
+    <p>In declarative languages, it’s easier to build up the query piece by piece. Start with a basic frame of what you’re looking for (maybe write the conditions, or do a join). Then add complexity to your query one bit at a time. It’s much easier to debug this way as well.</p>
+  </li>
+  <li>
+    <p>BigQuery can auto-format your SQL queries with <code class="language-plaintext highlighter-rouge">CTRL-SHIFT-F</code> on Windows or <code class="language-plaintext highlighter-rouge">CMD-SHIFT-F</code> on Mac (You might need to do some editing for it to take effect). This might be nice to learn about conventional SQL style guidelines (and will also make your queries more readable, which we appreciate).</p>
+  </li>
+</ol>
+
+<p><strong>Note</strong>: When querying in BigQuery, table names should be wrapped in backticks (`). For example, instead of saying:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">bigquery</span><span class="o">-</span><span class="k">public</span><span class="o">-</span><span class="k">data</span><span class="p">.</span><span class="n">stackoverflow</span><span class="p">.</span><span class="n">users</span>
+</code></pre></div></div>
+
+<p>say:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="nv">`bigquery-public-data.stackoverflow.users`</span>
+</code></pre></div></div>
+
+<h2 id="helpful-resources">Helpful Resources</h2>
+<ul>
+  <li><strong>BigQuery Sql syntax</strong>: https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax</li>
+  <li><strong>Using Cloud Console</strong>: https://cloud.google.com/bigquery/docs/quickstarts/quickstart-cloud-console (First section)</li>
+</ul>
+
+<h2 id="questions">Questions</h2>
+
+<p><strong>Please read the submission instructions carefully before starting the assignment.</strong></p>
+
+<p>Now that you’ve gotten comfortable and familiar with BigQuery and its SQL querying interface, let’s get to work and answer some questions about the Stackoverflow dataset!</p>
+
+<p>You will be asked to submit a CSV file for each question, and you could download the results of a query using the <code class="language-plaintext highlighter-rouge">SAVE RESULTS </code>button on the bottom panel and chose to save the CSV locally. We will provide you the column names for the expected output. You can name your columns whatever you want, as long as the content matches both in ordering and in values.</p>
+
+<p><strong>Notes:</strong></p>
+<ul>
+  <li>We will be using Autograder for grading this assignment. Hence, it is critical that you follow the ordering and other constraints as mentioned in the problem. There are no partial credits for this assignment.</li>
+  <li>In this assignment, we will only be working with the following tables: <code class="language-plaintext highlighter-rouge">badges</code>, <code class="language-plaintext highlighter-rouge">posts_answers</code>, <code class="language-plaintext highlighter-rouge">posts_questions</code> and <code class="language-plaintext highlighter-rouge">users</code>. That is, you should ignore all the other tables that are present in the stackoverflow dataset, and use a <strong>subset of the above mentioned tables only</strong> for answering the below questions.</li>
+  <li>The problems generally would not state the table from where you should look from. Rather, in most problems it is understood from context.</li>
+  <li>Please read submission instructions before you begin.</li>
+  <li>Reiterating, <strong>CSV output should match exactly in ordering and limits.</strong></li>
+</ul>
+
+<ol>
+  <li>
+    <p>(1 point) List top 10 users with the highest reputation with upvotes greater than 10000 and down votes less than 300. Order by highest reputation ie., in descending order.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">display_name</th>
+          <th style="text-align: center">reputation</th>
+          <th style="text-align: center">up_votes</th>
+          <th style="text-align: center">down_votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(1 point) Distribution of users geographically. List the top 10 locations with most users along, in descending order with their count.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">location</th>
+          <th style="text-align: center">count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>As you may have noticed already, there are many null values in the dataset. Also, the location information is not properly formatted. In the coming questions we take these issues into account.</p>
+  </li>
+  <li>
+    <p>(2 points) Distribution of users with respect to countries. List the top 10 countries with the most users along with their count. Order them by count in descending order.</p>
+
+    <p>Since the location data is very messy, we will take the following actions for some of the countries. If the location contains(case sensitive):</p>
+    <ul>
+      <li>either “USA” or “United States” as a substring, convert the country name to: “USA” as a string.</li>
+      <li>either “London” or “United Kingdom” as a substring, convert the country name to: “UK” as a string.</li>
+      <li>if “France” appears as a substring, convert it to the string: “France”.</li>
+      <li>If “India” appears as a substring, convert it to the string: “India”.</li>
+    </ul>
+
+    <p><strong>Omit all NULL values</strong> of locations in the results. For other locations (not mentioned in the above list), please keep the names as it is.</p>
+
+    <p><strong>NOTE</strong>: Only use <code class="language-plaintext highlighter-rouge">SELECT</code> statements. No <code class="language-plaintext highlighter-rouge">UPDATE</code> statements are required.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">country</th>
+          <th style="text-align: center">num_users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(1 point) We now focus on user activity on Stackoverflow. List the number of active users every year (from when Stackoverflow was founded).</p>
+
+    <p>Order by years in descending order.</p>
+
+    <p>Active users with respect to a year are users whose <strong>“last_access_date”</strong> were in that year.It does not matter whether the user came online in previous years or not. For example, if a user’s <code class="language-plaintext highlighter-rouge">last_access_date</code> was in the year 2020, then the user will <strong>only be considered an active user for the year 2020.</strong></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">last_access_year</th>
+          <th style="text-align: center">num_users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(2 points) Some users are dormant while some are active. We would like to see examples of users who are dormant. 
+ Considering today is <strong>December 30, 2021</strong> – List the users (id, display_name, last_access_date) along with <code class="language-plaintext highlighter-rouge">days_since_last_access</code> and <code class="language-plaintext highlighter-rouge">days_since_creation</code>.</p>
+
+    <ul>
+      <li><strong>days_since_last_access</strong>: number of days (from December 30, 2021) since their last access.</li>
+      <li><strong>days_since_creation</strong>: number of days between their account creation and their last access.</li>
+    </ul>
+
+    <p>List the top 10 users with the above requirements, in order of <code class="language-plaintext highlighter-rouge">days_since_last_access</code> (descending order), <code class="language-plaintext highlighter-rouge">days_since_creation</code> (descending order).</p>
+
+    <p><strong>HINT</strong>: DATE_DIFF() function allows you to compare two dates and extract attributes from the same (you may need to cast the current field since it is of TIMESTAMP type).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">id</th>
+          <th style="text-align: center">display_name</th>
+          <th style="text-align: center">last_access_date</th>
+          <th style="text-align: center">days_since_last_access</th>
+          <th style="text-align: center">days_since_creation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(2 points) How does a user’s reputation change with upvotes and downvotes?
+ Since users’ reputation varies widely, we will bucketize the users into the following reputation buckets:
+ 0-500, 501-5000, 5001-50000, 50001-500000, &gt;500000</p>
+
+    <p>These are reputation values converted to intervals. Ensure that the above intervals are strings in your final output for the <code class="language-plaintext highlighter-rouge">reputation_bucket</code> column.</p>
+
+    <p>For every reputation bucket, do the following:</p>
+    <ul>
+      <li>calculate the upvote ratio (round it to <strong>two decimal places</strong>).</li>
+      <li>calculate the number of users that lie in that bucket.</li>
+    </ul>
+
+    <p><strong>upvote_ratio</strong>: (total upvotes)/(total downvotes)</p>
+
+    <p>Its the ratio of the sum of upvotes by the sum of downvotes for users that lie in that bucket.</p>
+
+    <p>Order by <code class="language-plaintext highlighter-rouge">num_users</code> in descending order.
+ <strong>NOTE</strong>: Use the exact reputation bucket values mentioned above. Do not change the interval values.</p>
+
+    <p><strong>HINT</strong>: Use CASE… WHEN operators for bucketizing, and ROUND function for rounding the floating to the appropriate number of decimal places.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">reputation_bucket</th>
+          <th style="text-align: center">upvote_ratio</th>
+          <th style="text-align: center">num_users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(2 points) What were the most popular tags in the year 2020 on stack overflow based on their occurrence? List the top 10 tags along with their count.</p>
+
+    <p>Order by the count in descending order.</p>
+
+    <p><strong>Clarification</strong>: You can get the distribution of tags with their counts from the tags table (overall). But it would be difficult to obtain the count for the year 2020. The suggestion is to consider the tags attribute in <code class="language-plaintext highlighter-rouge">posts_questions</code>.</p>
+
+    <p><strong>Note</strong>: The year corresponds to the year when the questions were created.</p>
+
+    <p><strong>HINT</strong>: the SPLIT function allows you to split a string based on a delimiter. UNNEST function returns a table based on an array as input.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">tag</th>
+          <th style="text-align: center">count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>We see that <em>python</em> and <em>javascript</em> were the most popular tags in the year 2020 and overall across all of stackoverflow as well.</p>
+  </li>
+  <li>
+    <p>(1 point) <strong>Badge Analysis</strong>:
+ Stackoverflow rewards users with various kinds of achievement badges based on different milestones (similar to gaming achievements). The badges are divided into three classes: Gold (1), Silver(2) and Bronze(3). More about them <a href="https://stackoverflow.blog/2021/04/12/stack-overflow-badges-explained/">here</a>.</p>
+
+    <p>Each category of badge has several badges enlisted in them.</p>
+
+    <p>We would like to find out the most popular golden badges that stackoverflow awards.</p>
+
+    <p>List out the <em>top 10 golden badges</em> (name) along with the number of users who have received these badges in descending order of the number of users.</p>
+
+    <p><strong>Clarification:</strong> A user can receive more than one golden badge of the same name. In this instance, we will count the <strong>number of users as two</strong> for the said golden badge..</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">name</th>
+          <th style="text-align: center">num_users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(2 points) What is the relationship between a user’s reputation, and badges earned?</p>
+
+    <p>List out the top 10 users who have the highest number of golden badges along with the number of golden badges that they have earned.</p>
+
+    <p>Order by the number of gold badges (desc).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">id</th>
+          <th style="text-align: center">display_name</th>
+          <th style="text-align: center">reputation</th>
+          <th style="text-align: center">up_votes</th>
+          <th style="text-align: center">down_votes</th>
+          <th style="text-align: center">num_gold_badges</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(2 points) <strong>“Illuminator”</strong> is the rarest badge that is awarded by stackoverflow. Up to now, only 148 users have been bestowed with this badge.</p>
+
+    <p>We would like to find out how early you can obtain this badge? This time, list out the top 20 users (id, display_name, reputation) who took the lowest number of days to receive their first illuminator badge from when they created the account, along with the number of days it took for them to receive their first illuminator badge (from when they created the account).</p>
+
+    <p>Order by the number of days in ascending order.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">id</th>
+          <th style="text-align: center">display_name</th>
+          <th style="text-align: center">reputation</th>
+          <th style="text-align: center">num_days</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(1 point) You might remember that we did a comparison between reputation bucket and upvote_ratio. This question is pretty similar to that one – we would like to check a similar relationship between score and view counts for the questions asked on stackoverflow.</p>
+
+    <p>The score buckets: &lt;0, 0-100, 101-1000, 1001-10000, &gt;10000
+These are the values of scores in intervals.</p>
+
+    <p>List out the average number of views for each score bucket value, using the posts_questions table.</p>
+
+    <p>Round it to 2 decimal places and order the same by the average views in ascending order.
+<strong>HINT</strong>: Use the <em>ROUND</em> function provided by Bigquery.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">score_bucket</th>
+          <th style="text-align: center">avg_num_views</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>We can see the high correlation between the two. This seems pretty natural, but it is important to confirm some of our assumptions before going into further analysis.</p>
+  </li>
+  <li>
+    <p>(1 point) Which weekday had the most number of answers being given?</p>
+
+    <p>List out the weekday (in numericals 1-7) along with the total number of answers given during that day.</p>
+
+    <p>Order by the number of answers in descending order.</p>
+
+    <p><strong>HINT</strong>: DAYOFWEEK function allows you to extract the weekday. Range is 1-7 with 1 corresponding to Sunday. Even though the column is day_name, the values are numerical only.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">day_name</th>
+          <th style="text-align: center">num_answers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Interestingly, <em>Wednesday</em> has the most answers! It’s not surprising that users do not answer much during weekends.</p>
+  </li>
+  <li>
+    <p>(1 point) What is the percentage of questions that are answered every year? Note that we attribute the question to the year in which it was posted. For example, if a question was posted in year X and answered in year Y, we count it as a question of year X. A question that was answered has an answer_count field that is greater than zero</p>
+
+    <p>List out the year, number of questions (in that year) along with the percentage answered (<strong>multiply by 100 and then round it to 2 decimal places</strong>).</p>
+
+    <p>A question is said to be answered if the <code class="language-plaintext highlighter-rouge">answer_count</code> field is greater than zero.</p>
+
+    <p>Order by year (ascending order).</p>
+
+    <p><strong>Clarification</strong>: A question only belongs to the year in which it was created. For example, if a question had a creation year of 2020, then it will <em>only</em> belong in 2020.</p>
+
+    <p><strong>HINT</strong>: Use the <em>ROUND</em> function available in Bigquery.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">year</th>
+          <th style="text-align: center">num_questions</th>
+          <th style="text-align: center">percentage_answered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(2 points) List top 20 users who posted the highest number of answers along with their id, display_name, reputation and the number of answers.</p>
+
+    <p>Print only those users with the number of answers greater than 50. Order the same by number of answers in descending order.</p>
+
+    <p>In the table: the attribute id refers to the id of the answer text, the attribute owner_user_id refers to the user who has answered, and the attribute parent_id refers to the question id that the answer is for.</p>
+
+    <p><strong>Clarification</strong>:</p>
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">answer_count</code> and <code class="language-plaintext highlighter-rouge">accepted_answer_id</code> fields are all null for posts_answers.</li>
+      <li><strong>id</strong>: refers to the id of the answer text , <strong>owner_user_id</strong>:  refers to the user who has answered, <strong>parent_id</strong>: refers to the question id that the answer is for.</li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">id</th>
+          <th style="text-align: center">display_name</th>
+          <th style="text-align: center">reputation</th>
+          <th style="text-align: center">num_answers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Gordon Linoff</strong> is on a roll!</p>
+  </li>
+  <li>
+    <p>(2 points) Follow up to the previous question:
+We would now like to find out the specialists users in python. A user is considered a python specialist if he/she has answered a large number of python based questions on stackoverflow.</p>
+
+    <p>A python based question is a question which has the substring <strong>“python”</strong> as one the tags.</p>
+
+    <p>With all the conditions remaining the same from the previous question, print out the top 20 python specialists along with the number of answers posted by them.</p>
+
+    <p><strong>Note:</strong> Every answer in the posts_answers has a <code class="language-plaintext highlighter-rouge">parent_id</code> attribute pointing to the question_id (in <code class="language-plaintext highlighter-rouge">posts_questions</code>). Multiple answers can have the same parent_id.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">id</th>
+          <th style="text-align: center">display_name</th>
+          <th style="text-align: center">reputation</th>
+          <th style="text-align: center">num_answers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>(2 points) Analyzing posts with extreme scores.
+List the average number of answers, favourite count, comment count for posts with:</p>
+    <ul>
+      <li>score&lt;0</li>
+      <li>score&gt;10000</li>
+    </ul>
+
+    <p>There should be two rows in the table corresponding to the two scores and their averages.</p>
+
+    <p>Round up to 2 decimal places, and order by score.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">score</th>
+          <th style="text-align: center">avg_answers</th>
+          <th style="text-align: center">avg_fav_count</th>
+          <th style="text-align: center">avg_comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center">&lt;0</td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">&gt;10000</td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+          <td style="text-align: center"> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Note:</strong> Ensure that the output csv has two rows with score column as string as mentioned in the sample table (no spaces).</p>
+
+    <p>Stark difference between the attributes for the two scores! Confirms our assumptions, and these features become highly important later in the analysis.</p>
+  </li>
+</ol>
+
+<p>Great Job!! This is the end of the assignment!</p>
+
+<h2 id="submission-instructions">Submission Instructions</h2>
+
+<p>This is a <strong>solo</strong> project so every student should submit their own work.</p>
+
+<h3 id="file-submission">File Submission</h3>
+
+<p>Each student should submit one zip file to Gradescope.</p>
+
+<h3 id="content">Content</h3>
+
+<ol>
+  <li>Copy all your queries into the hw1_submission.py file. You can find the file on Courseworks.  In order to be correctly graded, the <strong>file must be named hw1_submission.py.</strong></li>
+  <li>Rename your CSV outputs to <strong>q1 - q16.csv</strong></li>
+  <li>
+    <p>Please ensure that your directory structure is as mentioned below. The zip file that you submit should have all the csv results as well as the hw1_submission.py file <strong>at the root</strong>.</p>
+
+    <p>If they are present in any other folder inside the zip file, then the autograder would result in an error.</p>
+  </li>
+</ol>
+
+<p>The structure should be like:</p>
+
+<pre><code class="language-plain">slj2142_assignment1.zip
+├── hw1_submission.py
+├── q1.csv
+├── q2.csv
+├── q3.csv
+├── q4.csv
+├── q5.csv
+├── q6.csv
+├── q7.csv
+├── q8.csv
+├── q9.csv
+├── q10.csv
+├── q11.csv
+├── q12.csv
+├── q13.csv
+├── q14.csv
+├── q15.csv
+└── q16.csv
+</code></pre>
+
+<h3 id="notes">Notes:</h3>
+
+<p>When you submit to Gradescope, we will run a syntax checker that will make sure the following:</p>
+<ul>
+  <li>Check your SQL query syntax.</li>
+  <li>Check the file structure of your submission (whether all the files follow the naming convention).</li>
+  <li>Check the ordering to make sure all the files are present.</li>
+</ul>
+
+<p>It should run immediately and return whether the query ran OK or if there were errors - please make sure that you get a positive result from this test in your final submission.</p>
+
+<p><strong>Handling Ties</strong>: You might notice that in case of ties (between two records of the ordering column), bigquery may produce either of the ordering. Do not worry about this. We have configured the autograder to handle ties and grade accordingly.</p>
+
+<p>You will not see a final grade until after the project deadline. It is your responsibility to ensure that your final submission is free from Python or SQL syntax errors and that you follow all instructions in this section. We reserve the right to deduct points from your project if you do not follow the submission instructions, or if you have syntax errors in your queries.</p>
+
+<p>Autograder automatically checks for cheating. Students that are caught cheating will receive a 0 grade.</p>
+
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+  </body>
+</html>
