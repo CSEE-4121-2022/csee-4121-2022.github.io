@@ -154,7 +154,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">10</td>
-<td markdown="span">MapReduce and stragglers</td>
+<td markdown="span">MapReduce and stragglers (<a href="https://www.dropbox.com/s/o5uwaa3fo8tv9ch/Topic%206%20-%20MapReduce%20and%20Spark.pdf?dl=0">Slides</a>)</td>
 <th></th>
 </tr>
 <tr>
