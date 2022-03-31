@@ -325,7 +325,7 @@ Try to be clear about the instructions to run these steps. The purpose of doing 
 The structure should be something like
 
 ```plain
-g1.zip
+slj2142_rc3374.zip
 ├── p1t1
 │	├── schema.txt
 ├── p1t2
