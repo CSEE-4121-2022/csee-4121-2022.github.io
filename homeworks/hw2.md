@@ -69,7 +69,7 @@ There are two ways to do this -- manual and ideal.
     #### Steps:
     - Create a cloud storage bucket with default configurations and any suitable name as per your preference. Follow [this](https://cloud.google.com/storage/docs/creating-buckets) for more details on how to create a bucket on GCP.
     - While creating a dataproc cluster, go to `Customize Cluster` and `Cloud Storage staging bucket`. Click `Browse` to select the bucket that you created in the previous step.
-    ![Bucket with Dataproc](./pics/bucket_dataproc.png)
+    ![Bucket with Dataproc](./pics/bucket_dataproc.jpeg)
     
     __NOTE__: This step is optional but recommended. This is to prevent unforseen scenarios wherein you might lose all your progress because of a cluster failure.
 
