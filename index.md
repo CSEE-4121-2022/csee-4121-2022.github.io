@@ -47,7 +47,7 @@ conducting analysis on large data sets?</li>
 OH: By appointment only
 
 ## Location and Time
-Asaf Cidon - Fridays 10:10 AM - 12:40 PM | 417 International Affairs Building \\
+Asaf Cidon - Fridays 10:10 AM - 12:40 PM | 501 Northwest Corner Building \\
 Sambit Sahu - Thursdays 7:00 PM - 9:30 PM | 402 Chandler
 
 ## TAs
