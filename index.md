@@ -169,18 +169,18 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">13</td>
-<td markdown="span">Security and privacy</td>
+<td markdown="span">Machine Learning</td>
 <th markdown="1">Written Homework 2 out</th>
 <th></th>
 </tr>
 <tr>
 <td markdown="span">14</td>
-<td markdown="span">Data quality</td>
+<td markdown="span">Security</td>
 <th></th>
 </tr>
 <tr>
 <td markdown="span">15</td>
-<td markdown="span">Review</td>
+<td markdown="span">Data Quality and Review</td>
 <th markdown="1">Programming Homework 2 due, Written Homework 2 due(April 29, 2022 4:59:59PM)</th>
 </tr>
 <tr>
