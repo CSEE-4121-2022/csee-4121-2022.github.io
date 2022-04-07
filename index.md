@@ -164,7 +164,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">12</td>
-<td markdown="span">Caching</td>
+<td markdown="span">Caching (<a href="https://www.dropbox.com/s/5sggarpl2kx1oxn/Topic%207%20-%20Caching.pdf?dl=0">Slides</a>)</td>
 <th></th>
 </tr>
 <tr>
