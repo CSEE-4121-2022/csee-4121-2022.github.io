@@ -170,7 +170,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">13</td>
-<td markdown="span">Machine Learning</td>
+<td markdown="span">Machine Learning (<a href="https://www.dropbox.com/s/ub35qceqpbo7c31/Topic%208%20-%20Systems%20for%20Machine%20Learning.pdf?dl=0">Slides</a>)</td>
 <th markdown="1">Written Homework 2 out</th>
 <th></th>
 </tr>
