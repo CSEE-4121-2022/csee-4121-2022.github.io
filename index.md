@@ -176,7 +176,7 @@ Students are expected to have solid programming experience in Python or with an 
 </tr>
 <tr>
 <td markdown="span">14</td>
-<td markdown="span">Security</td>
+<td markdown="span">Security (<a href="https://www.dropbox.com/s/9rz9n9gvhw2iajq/Topic%209%20-%20Data%20Security%20and%20Compliance.pdf?dl=0">Slides</a>)</td>
 <th></th>
 </tr>
 <tr>
