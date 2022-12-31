@@ -13,9 +13,7 @@ Spring '22, Columbia University
 {: style="color:black; font-size: 130%; text-align: center; padding-bottom: 30px;"}
 
 [Programming Homework 1]({{ site.baseurl }}{%link homeworks/hw1.md %}) | 
-[Written Homework 1 solutions]({{ site.baseurl }}{%link solutions/Written HW1 - Solutions.pdf %}) |
 [Programming Homework 2]({{ site.baseurl }}{%link homeworks/hw2.md %}) |
-[Midterm solutions]({{ site.baseurl }}{%link solutions/CSEE 4121 Midterm Solutions.pdf %})
 
 ----
 
