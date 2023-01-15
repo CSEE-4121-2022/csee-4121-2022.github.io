@@ -37,7 +37,7 @@ First, make sure you have followed the [instructions](http://www.cs.columbia.edu
 
 Then, use the following [link](https://console.cloud.google.com/dataproc), and click on `Enable API` to enable Google Cloud Dataproc. __Note__: you could pin Dataproc on your navigation menu for quick access.
 
-Click on `Create cluster` to create your first Dataproc Cluster. Notice there are three Cluster modes you could choose from: Single Node, Standard, and High Availability. We will start with a Single Node cluster.
+Click on `Create cluster` to create your first Dataproc Cluster (Note: create the cluster on Compute Engine when prompted). Notice there are three Cluster modes you could choose from: Single Node, Standard, and High Availability. We will start with a Single Node cluster.
 
 
 
