@@ -207,4 +207,3 @@ Programming assignment 1 and the written assignments will be done alone. Program
 ## Course Materials
 No textbook.
 
-<p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
